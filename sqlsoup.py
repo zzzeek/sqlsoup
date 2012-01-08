@@ -11,7 +11,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker, mapper, \
 from sqlalchemy.orm.interfaces import MapperExtension, EXT_CONTINUE
 from sqlalchemy.sql import expression
 
-__version__ = '0.9'
+__version__ = '0.9.0'
 __all__ = ['SQLSoupError', 'SQLSoup', 'SelectableClassType', 'TableClassType', 'Session']
 
 Session = scoped_session(sessionmaker())
