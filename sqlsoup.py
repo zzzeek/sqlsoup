@@ -12,7 +12,7 @@ from sqlalchemy.orm.interfaces import MapperExtension, EXT_CONTINUE
 from sqlalchemy.sql import expression
 
 __version__ = '0.9'
-__all__ = ['SQLSoupError', 'SQLSoup', 'SelectableClassType', 'TableClassType']
+__all__ = ['SQLSoupError', 'SQLSoup', 'SelectableClassType', 'TableClassType', 'Session']
 
 Session = scoped_session(sessionmaker())
 """SQLSoup's default session registry.

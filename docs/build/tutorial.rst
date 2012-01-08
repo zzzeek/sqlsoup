@@ -15,6 +15,13 @@ you can do a lot more with the SQLAlchemy ORM directly, SQLSoup
 will have you querying an existing database in just two lines
 of code.
 
+SQLSoup is really well suited to quick one-offs, early learning
+of SQLAlchemy, and small scripting activities.  It can be used
+in larger applications such as web applications as well, but 
+here you'll begin to experience diminishing returns; in a substantial
+web application, it might be time to just switch to SQLAlchemy's
+:ref:`ormtutorial_toplevel`. 
+
 Getting Ready to Connect
 =========================
 
@@ -22,10 +29,11 @@ Suppose we have a database with users, books, and loans tables
 (corresponding to the PyWebOff dataset, if you're curious).
 
 Creating a SQLSoup gateway is just like creating a SQLAlchemy
-engine::
+engine.   The urls are in the same format as those used by
+:func:`sqlalchemy.create_engine`::
 
     >>> import sqlsoup
-    >>> db = sqlsoup.SQLSoup('sqlite:///:memory:')
+    >>> db = sqlsoup.SQLSoup('postgresql://scott:tiger@localhost/test')
 
 or, you can re-use an existing engine::
 
@@ -41,8 +49,17 @@ to the database until it's first asked to do something.  If the connection
 string is incorrect, the error will be raised when SQLSoup first tries
 to connect.
 
+See also:
+
+:ref:`engines_toplevel` - SQLAlchemy supported database backends, engine
+connect strings, etc.
+
 Loading objects
 ===============
+
+When using a :class:`.SQLSoup`, you access attributes from it which match
+the name of a table in the database.   If your database has a table named
+``users``, you'd get to it via an attribute named ``.users``.
 
 Loading objects is as easy as this::
 
@@ -56,7 +73,25 @@ Loading objects is as easy as this::
                 password=u'basepair',classname=None,admin=1)
     ]
 
-Of course, letting the database do the sort is better::
+Field access is intuitive::
+
+    >>> users[0].email
+    u'student@example.edu'
+
+An alternative to ``db.users`` is to use the :meth:`.SQLSoup.entity` method,
+which accepts a string argument.   This is useful if the name of your table has 
+special casing or other character considerations:
+
+    >>> my_user_table = db.entity("User_Table")
+
+You can then refer to ``my_user_table`` the same way we refer to ``db.users``
+in this tutorial.
+
+Basic Table Usage
+=================
+
+The table object proxies out to the SQLAlchemy :class:`sqlalchemy.orm.query.Query`
+object.   For example, we can sort with ``order_by()``::
 
     >>> db.users.order_by(db.users.name).all()
     [
@@ -65,11 +100,6 @@ Of course, letting the database do the sort is better::
         MappedUsers(name=u'Joe Student',email=u'student@example.edu',
             password=u'student',classname=None,admin=0)
     ]
-
-Field access is intuitive::
-
-    >>> users[0].email
-    u'student@example.edu'
 
 Of course, you don't want to load all users very often. Let's
 add a WHERE clause. Let's also switch the order_by to DESC while
@@ -122,7 +152,6 @@ Modifying objects
 
 Modifying objects is intuitive::
 
-    >>> user = _
     >>> user.email = 'basepair+nospam@example.edu'
     >>> db.commit()
 
@@ -221,7 +250,7 @@ You can also join directly to a labeled object::
 Relationships
 =============
 
-You can define relationships between classes using the :meth:`.TableClassType.relate`
+You can define relationships between classes using the :meth:`~.TableClassType.relate`
 method from any mapped table:
 
     >>> db.users.relate('loans', db.loans)
@@ -237,7 +266,7 @@ These can then be used like a normal SA property:
             email='basepair+nospam@example.edu',
             password=u'basepair',classname=None,admin=1)]
 
-relate can take any options that the relationship function
+:meth:`~.TableClassType.relate` can take any options that the relationship function
 accepts in normal mapper definition:
 
     >>> del db._cache['users']
@@ -246,8 +275,8 @@ accepts in normal mapper definition:
 Advanced Use
 ============
 
-Sessions, Transations and Application Integration
--------------------------------------------------
+Sessions, Transactions and Application Integration
+--------------------------------------------------
 
 .. note::
 
@@ -266,13 +295,13 @@ via::
 
 The configuration of this session is ``autoflush=True``,
 ``autocommit=False``. This means when you work with the SQLSoup
-object, you need to call ``db.commit()`` in order to have
-changes persisted. You may also call ``db.rollback()`` to roll
+object, you need to call :meth:`.SQLSoup.commit` in order to have
+changes persisted. You may also call :meth:`.SQLSoup.rollback` to roll
 things back.
 
 Since the SQLSoup object's Session automatically enters into a
 transaction as soon as it's used, it is *essential* that you
-call ``commit()`` or ``rollback()`` on it when the work within a
+call :meth:`.SQLSoup.commit` or :meth:`.SQLSoup.rollback` on it when the work within a
 thread completes. This means all the guidelines for web
 application integration at :ref:`session_lifespan` must be
 followed.
@@ -300,9 +329,9 @@ looks like::
 Mapping arbitrary Selectables
 -----------------------------
 
-SQLSoup can map any SQLAlchemy :class:`.Selectable` with the map
-method. Let's map an :func:`.expression.select` object that uses an aggregate
-function; we'll use the SQLAlchemy :class:`.Table` that SQLSoup
+SQLSoup can map any SQLAlchemy :class:`sqlalchemy.sql.expression.Selectable` with the map
+method. Let's map an :func:`sqlalchemy.sql.expression.select` object that uses an aggregate
+function; we'll use the SQLAlchemy :class:`sqlalchemy.schema.Table` that SQLSoup
 introspected as the basis. (Since we're not mapping to a simple
 table or join, we need to tell SQLAlchemy how to find the
 *primary key* which just needs to be unique within the select,
@@ -355,11 +384,11 @@ Dynamic table names
 -------------------
 
 You can load a table whose name is specified at runtime with the
-entity() method:
+:meth:`.SQLSoup.entity` method:
 
     >>> tablename = 'loans'
-    >>> db.entity(tablename) == db.loans
+    >>> db.entity(tablename) is db.loans
     True
 
-entity() also takes an optional schema argument. If none is
+:meth:`.SQLSoup.entity` also takes an optional schema argument. If none is
 specified, the default schema is used.
