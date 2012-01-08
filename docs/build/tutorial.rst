@@ -10,9 +10,10 @@ super-minimalistic interface to an existing database.
 SQLSoup effectively provides a coarse grained, alternative
 interface to working with the SQLAlchemy ORM, providing a "self
 configuring" interface for extremely rudimental operations. It's
-somewhat akin to a "super novice mode" version of the ORM. While
-SQLSoup can be very handy, users are strongly encouraged to use
-the full ORM for non-trivial applications.
+somewhat akin to a "super novice mode" version of the ORM.  While
+you can do a lot more with the SQLAlchemy ORM directly, SQLSoup
+will have you querying an existing database in just two lines
+of code.
 
 Getting Ready to Connect
 =========================
@@ -20,7 +21,7 @@ Getting Ready to Connect
 Suppose we have a database with users, books, and loans tables
 (corresponding to the PyWebOff dataset, if you're curious).
 
-Creating a SQLSoup gateway is just like creating an SQLAlchemy
+Creating a SQLSoup gateway is just like creating a SQLAlchemy
 engine::
 
     >>> import sqlsoup
@@ -33,7 +34,7 @@ or, you can re-use an existing engine::
 You can optionally specify a schema within the database for your
 SQLSoup::
 
-    >>> db.schema = myschemaname
+    >>> db.schema = "myschemaname"
 
 Note that the :class:`.SQLSoup` object doesn't actually connect
 to the database until it's first asked to do something.  If the connection
