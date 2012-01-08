@@ -9,7 +9,7 @@ if sys.version_info >= (3, 0):
         use_2to3=True,
     )
 
-v = open(os.path.join(os.path.dirname(__file__), 'sqlsoup', '__init__.py'))
+v = open(os.path.join(os.path.dirname(__file__), 'sqlsoup.py'))
 VERSION = re.compile(r".*__version__ = '(.*?)'", re.S).match(v.read()).group(1)
 v.close()
 
