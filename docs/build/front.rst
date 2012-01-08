@@ -30,7 +30,7 @@ collaborate on Bitbucket, create forks, and improve the product.
 Installation
 ============
 
-Install released versions of Alembic from the Python package 
+Install released versions of SQLSoup from the Python package 
 index with `pip <http://pypi.python.org/pypi/pip>`_ or a similar tool::
 
     pip install sqlsoup
