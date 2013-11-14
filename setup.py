@@ -1,13 +1,6 @@
-from setuptools import setup, find_packages
-import sys
+from setuptools import setup
 import os
 import re
-
-extra = {}
-if sys.version_info >= (3, 0):
-    extra.update(
-        use_2to3=True,
-    )
 
 v = open(os.path.join(os.path.dirname(__file__), 'sqlsoup.py'))
 VERSION = re.compile(r".*__version__ = '(.*?)'", re.S).match(v.read()).group(1)
@@ -42,5 +35,4 @@ setup(name='sqlsoup',
       install_requires=[
           'SQLAlchemy>=0.7.0',
       ],
-      **extra
 )

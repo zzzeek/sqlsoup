@@ -10,7 +10,7 @@ built on top of the `SQLAlchemy <http://www.sqlalchemy.org>`_ Object Relational 
    front
    tutorial
    api
-
+   changelog
 
 
 Indices and tables
