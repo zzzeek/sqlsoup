@@ -3,6 +3,7 @@ Changelog
 ==============
 .. changelog::
     :version: 0.9.1
+    :released: Tue Feb 2 2016
 
     .. change::
         :tags: bug
