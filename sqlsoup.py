@@ -19,7 +19,7 @@ if py2k:
 else:
     string_types = string_types = str,
 
-__version__ = '0.9.0'
+__version__ = '0.9.1'
 __all__ = ['SQLSoupError', 'SQLSoup', 'SelectableClassType', 'TableClassType', 'Session']
 
 Session = scoped_session(sessionmaker())
