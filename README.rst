@@ -9,7 +9,7 @@ SQLSoup
    database reflection, please refer to the `automap <https://docs.sqlalchemy.org/en/stable/orm/extensions/automap.html>`_ feature
    at: https://docs.sqlalchemy.org/en/stable/orm/extensions/automap.html
 
-
+------
 
 SQLSoup provides a convenient way to map Python objects
 to relational database tables, with no declarative code
