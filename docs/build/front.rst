@@ -4,26 +4,29 @@ Front Matter
 
 Information about the SQLSoup project.
 
+Project Status
+==============
+
+.. admonition:: **SQLSoup is Unmaintained / Unsupported**
+
+   SQLSoup no longer functions with modern versions of SQLAlchemy and the project is currently unmaintained.
+   For modern support of ad-hoc models based on 
+   database reflection, please refer to the `automap <https://docs.sqlalchemy.org/en/stable/orm/extensions/automap.html>`_ feature
+   at: https://docs.sqlalchemy.org/en/stable/orm/extensions/automap.html
+
+   Note that the architectural approach of SQLSoup remains compatible with modern SQLAlchemy versions, so that
+   if someone wanted to take over maintenance of the project, it could be made to work again.
+
+
 Project Homepage
 ================
 
-SQLSoup is hosted on `Bitbucket <http://bitbucket.org>`_ - the lead project
-page is at https://bitbucket.org/zzzeek/sqlsoup. Source code is tracked here
-using `Mercurial <http://mercurial.selenic.com/>`_.
-
-Releases and project status are available on Pypi at
-http://pypi.python.org/pypi/sqlsoup.
+SQLSoup's code is hosted at 
+https://github.com/zzzeek/sqlsoup/
 
 The most recent published version of this documentation should be at
 http://readthedocs.org/docs/sqlsoup/.
 
-Project Status
-==============
-
-SQLSoup has been included with the SQLAlchemy distribution for many years.
-As of 2012 it has been broken out into it's own project, where it can
-be tracked and released separately.   The community is also invited to 
-collaborate on Bitbucket, create forks, and improve the product.
 
 .. _installation:
 
@@ -44,20 +47,14 @@ Dependencies
 
 SQLSoup's install process will ensure that `SQLAlchemy <http://www.sqlalchemy.org>`_ 
 is installed, in addition to other dependencies.  The 0.7 series of 
-SQLAlchemy or greater is recommended.
+SQLAlchemy or greater is recommended.  The 1.4 series of SQLAlchemy and greater are
+currently not supported.
 
 
 Community
 =========
 
-SQLSoup was originally written by Jonathan Ellis.   It is under maintenance
-by `Mike Bayer <http://techspot.zzzeek.org>`_, and is 
-loosely associated with the `SQLAlchemy`_ project. 
+SQLSoup was originally written by Jonathan Ellis, and was later 
+maintained 
+by `Mike Bayer <http://techspot.zzzeek.org>`_.
 
-.. _bugs:
-
-Bugs
-====
-
-Bugs and feature enhancements to SQLSoup should be reported on the `Bitbucket
-issue tracker <https://bitbucket.org/zzzeek/sqlsoup/issues?status=new&status=open>`_.  
