@@ -9,6 +9,10 @@ SQLSoup
    database reflection, please refer to the `automap <https://docs.sqlalchemy.org/en/stable/orm/extensions/automap.html>`_ feature
    at: https://docs.sqlalchemy.org/en/stable/orm/extensions/automap.html
 
+   The general architectural approach of SQLSoup remains compatible with modern SQLAlchemy versions, so that
+   if someone wanted to take over maintenance of the project, it could be made to work again; it would need to be updated 
+   to use modern API features rather than the now-removed API features it relies upon.
+   
 ------
 
 SQLSoup provides a convenient way to map Python objects
