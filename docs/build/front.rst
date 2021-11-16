@@ -24,9 +24,6 @@ Project Homepage
 SQLSoup's code is hosted at 
 https://github.com/zzzeek/sqlsoup/
 
-The most recent published version of this documentation should be at
-http://readthedocs.org/docs/sqlsoup/.
-
 
 .. _installation:
 
